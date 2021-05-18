@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState, useCallback } from 'react';
 import Link from 'next/link';
 import { FaSearch } from 'react-icons/fa';
+// import { useSpring, animated } from "react-spring"
 
 import useSite from 'hooks/use-site';
 import useSearch from 'hooks/use-search';
@@ -17,6 +18,11 @@ const SEARCH_HIDDEN = 'hidden';
 
 const Nav = () => {
   const formRef = useRef();
+
+  // const navAnimationStyleProps = useSpring({
+  //   to: { opacity: 1, marginLeft: 0 },
+  //   from: { opacity: 0, marginLeft: -100 },
+  // })
 
   const [searchVisibility, setSearchVisibility] = useState(SEARCH_HIDDEN);
 
@@ -176,16 +182,17 @@ const Nav = () => {
       <Section className={styles.navSection}>
         <p className={styles.navName}>
           <Link href="/">
-            <a>{title}</a>
+            <a>{`${title}`}</a>
           </Link>
         </p>
         <ul className={styles.navMenu}>
           {navigation?.menuItems.map(({ id, path, label, title, target }) => {
             return (
+              // <animated.li key={id} style={navAnimationStyleProps}>
               <li key={id}>
                 {!path.includes('http') && !target && (
                   <Link href={path}>
-                    <a title={title}>{label}</a>
+                    <a title={title}>{label.length <= 10 ? label : label.substr(0, 5)}</a>
                   </Link>
                 )}
                 {path.includes('http') && (

@@ -1,6 +1,7 @@
 import useSite from 'hooks/use-site';
 import { getPaginatedPosts } from 'lib/posts';
 import { WebsiteJsonLd } from 'lib/json-ld';
+// import { useSpring, animated } from 'react-spring'
 
 import Layout from 'components/Layout';
 import Header from 'components/Header';
@@ -14,6 +15,7 @@ import styles from 'styles/pages/Home.module.scss';
 export default function Home({ posts, pagination }) {
   const { metadata = {} } = useSite();
   const { title, description } = metadata;
+  // const postAnimStyle = useSpring({ to: { opacity: 1, marginTop:0}, from: { opacity: 0, marginTop:-100 } })
 
   return (
     <Layout>
@@ -40,6 +42,7 @@ export default function Home({ posts, pagination }) {
           <ul className={styles.posts}>
             {posts.map((post) => {
               return (
+                // <animated.li style={postAnimStyle} key={post.slug}>
                 <li key={post.slug}>
                   <PostCard post={post} />
                 </li>

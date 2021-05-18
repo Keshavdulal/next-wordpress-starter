@@ -150,7 +150,7 @@ export async function getStaticPaths() {
 
     return {
       params: {
-        slugParent: segments.shift(),
+        slugParent: segments.shift(), // slugParent is causing some issues
         slugChild: segments,
       },
     };

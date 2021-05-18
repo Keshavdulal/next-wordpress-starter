@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { Helmet } from 'react-helmet';
+import { Transition } from 'react-transition-group';
 
 import { getPostBySlug, getAllPosts, getRelatedPosts, postPathBySlug } from 'lib/posts';
 import { categoryPathBySlug } from 'lib/categories';
@@ -19,7 +20,22 @@ import FeaturedImage from 'components/FeaturedImage';
 
 import styles from 'styles/pages/Post.module.scss';
 
-export default function Post({ post, socialImage, relatedPosts }) {
+// Transition Setup
+// const duration = 300
+
+// const defaultStyle = {
+//   transition: `opacity ${duration}ms ease-in-out`,
+//   opacity: 0,
+// }
+
+// const transitionStyles = {
+//   entering: { opacity: 0 },
+//   entered: { opacity: 0 },
+//   exiting: { opacity: 1 },
+//   exited: { opacity: 1 },
+// }
+
+export default function Post({ post, socialImage, relatedPosts, in: inProp }) {
   const {
     title,
     metaTitle,
@@ -72,7 +88,14 @@ export default function Post({ post, socialImage, relatedPosts }) {
       <Helmet {...helmetSettings} />
 
       <ArticleJsonLd post={post} siteTitle={siteMetadata.title} />
-
+      {/* <Transition in={inProp} timeout={duration}>
+        {(state) => (
+          <div
+            style={{
+              ...defaultStyle,
+              ...transitionStyles[state],
+            }}
+          > */}
       <Header>
         {featuredImage && (
           <FeaturedImage
@@ -96,7 +119,6 @@ export default function Post({ post, socialImage, relatedPosts }) {
           isSticky={isSticky}
         />
       </Header>
-
       <Content>
         <Section>
           <Container>
@@ -109,7 +131,6 @@ export default function Post({ post, socialImage, relatedPosts }) {
           </Container>
         </Section>
       </Content>
-
       <Section className={styles.postFooter}>
         <Container>
           <p className={styles.postModified}>Last updated on {formatDate(modifiedGmt)}.</p>
@@ -138,6 +159,9 @@ export default function Post({ post, socialImage, relatedPosts }) {
           )}
         </Container>
       </Section>
+      {/* </div>
+        )}
+      </Transition> */}
     </Layout>
   );
 }
